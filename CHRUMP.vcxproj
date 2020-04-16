@@ -90,10 +90,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>WinSQLite3.lib;Crypt32.lib;C:\CHRUMP\CryptoPP\Win32\Output\Debug\cryptlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -148,6 +151,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CHRUMP.cpp" />
+    <ClCompile Include="Decryptor.cpp" />
+    <ClCompile Include="DUMPER.cpp" />
+    <ClCompile Include="LoginDumper.cpp" />
+    <ClCompile Include="MyUlti.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Decryptor.h" />
+    <ClInclude Include="DUMPER.h" />
+    <ClInclude Include="LoginDumper.h" />
+    <ClInclude Include="MyUlti.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
