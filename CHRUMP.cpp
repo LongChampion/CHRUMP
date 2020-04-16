@@ -1,3 +1,4 @@
+#include "CookieDumper.h"
 #include "HistoryDumper.h"
 #include "LoginDumper.h"
 #include "MyUlti.h"
@@ -15,6 +16,16 @@ int main() {
     HistoryDumper.OpenDatabase(HISTORY_FILE);
     HistoryDumper.Dump();
     HistoryDumper.Show();
+    std::cout << std::endl;
+
+    // Dump Cookie
+    COOKIE_DUMPER CookieDumper;
+    std::string COOKIE_FILE =
+        HOMEPATH +
+        "\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Cookies";
+    CookieDumper.OpenDatabase(COOKIE_FILE);
+    CookieDumper.Dump();
+    CookieDumper.Show();
     std::cout << std::endl;
 
     // Dump LoginInfo

@@ -35,6 +35,7 @@ int LOGIN_DUMPER::Dump() {
     sqlite3_free(ErrMsg);
     return rc;
   }
+  sqlite3_free(ErrMsg);
 
   DECRYPTOR Decryptor;
   rc = Decryptor.GetMasterKey();

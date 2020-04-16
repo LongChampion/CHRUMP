@@ -154,6 +154,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CHRUMP.cpp" />
+    <ClCompile Include="CookieDumper.cpp" />
     <ClCompile Include="Decryptor.cpp" />
     <ClCompile Include="DUMPER.cpp" />
     <ClCompile Include="HistoryDumper.cpp" />
@@ -161,6 +162,7 @@
     <ClCompile Include="MyUlti.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CookieDumper.h" />
     <ClInclude Include="Decryptor.h" />
     <ClInclude Include="DUMPER.h" />
     <ClInclude Include="HistoryDumper.h" />
