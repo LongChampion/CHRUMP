@@ -156,12 +156,14 @@
     <ClCompile Include="CHRUMP.cpp" />
     <ClCompile Include="Decryptor.cpp" />
     <ClCompile Include="DUMPER.cpp" />
+    <ClCompile Include="HistoryDumper.cpp" />
     <ClCompile Include="LoginDumper.cpp" />
     <ClCompile Include="MyUlti.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Decryptor.h" />
     <ClInclude Include="DUMPER.h" />
+    <ClInclude Include="HistoryDumper.h" />
     <ClInclude Include="LoginDumper.h" />
     <ClInclude Include="MyUlti.h" />
   </ItemGroup>

@@ -29,7 +29,7 @@ int LOGIN_DUMPER::Dump() {
       "password_value,length(password_value) FROM logins";
 
   int rc = sqlite3_exec(pDatabase, Command, &AddEntry,
-                        static_cast<void *>(&LoginInfo), &ErrMsg);
+                        reinterpret_cast<void *>(&LoginInfo), &ErrMsg);
   if (rc || ErrMsg) {
     std::cerr << "Error with when reading database: " << ErrMsg << std::endl;
     sqlite3_free(ErrMsg);
@@ -56,7 +56,7 @@ int LOGIN_DUMPER::Dump() {
 
 int LOGIN_DUMPER::Show() {
   std::cout << "LOGIN INFO" << std::endl;
-  for (LOGIN_ENTRY &T : LoginInfo) {
+  for (const LOGIN_ENTRY &T : LoginInfo) {
     std::cout << std::string(60, '-') << std::endl;
     std::cout << "URL: " << T.URL << std::endl;
     std::cout << "Username: " << T.Username << std::endl;
