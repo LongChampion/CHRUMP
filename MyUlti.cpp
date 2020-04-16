@@ -1,3 +1,4 @@
+#include "MyUlti.h"
 #include <Windows.h>
 #include <iostream>
 #include <string>
@@ -64,4 +65,32 @@ std::string FromCharArray(const char *S, const int &n) {
   for (int i = 0; i < n; ++i)
     R[i] = S[i];
   return R;
+}
+
+int HexDump(const std::string &S) {
+  size_t N;
+  std::cout.fill('0');
+
+  for (size_t pos = 0; pos < S.length(); pos += 16) {
+    std::cout << "  ";
+    std::cout.width(8);
+    std::cout << std::hex << pos << ": ";
+
+    N = std::_Min_value(S.length(), pos + 16);
+    for (size_t i = pos; i < N; ++i) {
+      std::cout.width(2);
+      std::cout << std::hex << (int(S[i]) & 0xff) << ' ';
+    }
+    std::cout << std::string(3 * (pos + 16 - N), ' ');
+
+    std::cout << "| ";
+    for (size_t i = pos; i < N; ++i)
+      if ((32 <= S[i]) && (S[i] <= 126))
+        std::cout << S[i];
+      else
+        std::cout << '.';
+    std::cout << std::endl;
+  }
+
+  return 0;
 }

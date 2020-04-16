@@ -66,11 +66,17 @@ int HISTORY_DUMPER::Dump() {
 
 int HISTORY_DUMPER::Show() {
   std::cout << "HISTORY" << std::endl;
+  if (History.empty()) {
+    std::cout << "No history!" << std::endl;
+    return 0;
+  }
+
   for (const HISTORY_ENTRY &T : History) {
     std::cout << std::string(60, '-') << std::endl;
     std::cout << "Access Time (UTC): " << T.AccessTime << std::endl;
     std::cout << "URL: " << URL[T.URL_Index] << std::endl;
   }
   std::cout << std::string(60, '-') << std::endl;
+
   return 0;
 }

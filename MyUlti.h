@@ -13,4 +13,7 @@ std::string GetUserHomepath();
 // Load an array of bytes into string
 std::string FromCharArray(const char *, const int &);
 
+// Dump a string as hex map to screen
+int HexDump(const std::string &);
+
 #endif MY_ULTI_H
