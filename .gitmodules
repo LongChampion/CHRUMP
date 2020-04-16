@@ -1,0 +1,3 @@
+[submodule "CryptoPP"]
+	path = CryptoPP
+	url = https://github.com/weidai11/cryptopp
