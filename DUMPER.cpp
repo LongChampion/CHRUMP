@@ -7,7 +7,8 @@
 int DUMPER::OpenDatabase(const std::string &Filename) {
   CloseDatabase();
   BackupDatabase(Filename);
-  int rc = sqlite3_open((Filename + ".tmp").c_str(), &pDatabase);
+
+  int rc = sqlite3_open(Filepath.c_str(), &pDatabase);
   if (rc != SQLITE_OK) {
     std::cerr << "Error when opening database: " << sqlite3_errmsg(pDatabase)
               << std::endl;
@@ -25,6 +26,7 @@ int DUMPER::CloseDatabase() {
                 << std::endl;
       pDatabase = nullptr;
     }
+    DeleteDatabase();
     return rc;
   } else
     return 0;
@@ -44,6 +46,27 @@ int DUMPER::BackupDatabase(const std::string &S) {
   int ErrorCode = !CopyFile(OldName, NewName, false);
   if (ErrorCode)
     std::cerr << "Can't backup database: " << LastErrorMessage() << std::endl;
+  else
+    Filepath = S + ".tmp";
   delete[] OldName, delete[] NewName;
+  return ErrorCode;
+}
+
+int DUMPER::DeleteDatabase() {
+  if (Filepath.empty())
+    return 0;
+
+  size_t N = Filepath.length();
+  LPTSTR path = new TCHAR[N + 1];
+  for (size_t i = 0; i < N; ++i)
+    path[i] = Filepath[i];
+  path[N] = 0;
+
+  int ErrorCode = !DeleteFile(path);
+  if (ErrorCode)
+    std::cerr << "Can't delete database: " << LastErrorMessage() << std::endl;
+  else
+    Filepath.clear();
+  delete[] path;
   return ErrorCode;
 }
