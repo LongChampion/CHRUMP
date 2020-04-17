@@ -51,6 +51,7 @@ int COOKIE_DUMPER::Show() {
   if (rc)
     return rc;
 
+  std::string Decoded;
   for (const COOKIE_ENTRY &T : Cookie) {
     std::cout << std::string(60, '-') << std::endl;
     std::cout << "Host: " << T.Host << std::endl;
@@ -59,8 +60,12 @@ int COOKIE_DUMPER::Show() {
               << std::endl;
     std::cout << "Encrypted value: " << std::endl;
     HexDump(T.EncryptedValue);
-    std::cout << "Try to decrypt: " << Decryptor.Decrypt(T.EncryptedValue)
-              << std::endl;
+    try {
+      Decoded = Decryptor.Decrypt(T.EncryptedValue);
+    } catch (...) {
+      Decoded = "<Failed!>";
+    }
+    std::cout << "Try to decrypt: " << Decoded << std::endl;
   }
   std::cout << std::string(60, '-') << std::endl;
 

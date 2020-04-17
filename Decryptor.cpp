@@ -66,7 +66,7 @@ std::string DECRYPTOR::Unprotect(const std::string &S) {
 
   DATA_BLOB Input, Output;
   Input.pbData = Cipher;
-  Input.cbData = S.length() + 1;
+  Input.cbData = S.length();
   if (!CryptUnprotectData(&Input, NULL, NULL, NULL, NULL, 0, &Output)) {
     std::cerr << "CryptUnprotectData failed with code 0x" << std::hex
               << GetLastError() << std::endl;
@@ -89,6 +89,9 @@ std::string DECRYPTOR::Decrypt(const std::string &PW) {
     std::cerr << "Invalid encrypted password!" << std::endl;
     return std::string();
   }
+
+  if ((PW.length() < 3) || (PW.substr(0, 3) != "v10"))
+    return Unprotect(PW);
 
   CryptoPP::SecByteBlock key(MASTER_KEY.size());
   for (size_t i = 0; i < key.size(); ++i)

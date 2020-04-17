@@ -37,21 +37,6 @@ int LOGIN_DUMPER::Dump() {
   }
   sqlite3_free(ErrMsg);
 
-  DECRYPTOR Decryptor;
-  rc = Decryptor.GetMasterKey();
-  if (rc)
-    return rc;
-
-  for (LOGIN_ENTRY &T : LoginData) {
-    if (T.Password.empty())
-      T.Password = "[!] You didn't save this password!";
-    else {
-      T.Password = Decryptor.Decrypt(T.Password);
-      if (T.Password.empty())
-        std::cerr << "Can't decrypt password!" << std::endl;
-    }
-  }
-
   return 0;
 }
 
@@ -61,12 +46,31 @@ int LOGIN_DUMPER::Show() {
     std::cout << "No login data!" << std::endl;
     return 0;
   }
+
+  DECRYPTOR Decryptor;
+  int rc = Decryptor.GetMasterKey();
+  if (rc)
+    return rc;
+
+  std::string Decoded;
   for (const LOGIN_ENTRY &T : LoginData) {
     std::cout << std::string(60, '-') << std::endl;
     std::cout << "URL: " << T.URL << std::endl;
     std::cout << "Username: " << T.Username << std::endl;
-    std::cout << "Password: " << T.Password << std::endl;
+    std::cout << "Encrypted password: " << std::endl;
+    HexDump(T.Password);
+    if (T.Password.empty())
+      Decoded = "[!] You didn't save this password!";
+    else {
+      try {
+        Decoded = Decryptor.Decrypt(T.Password);
+      } catch (...) {
+        Decoded = "Can't decrypt this password!";
+      }
+    }
+    std::cout << "Try to decrypt: " << Decoded << std::endl;
   }
   std::cout << std::string(60, '-') << std::endl;
+
   return 0;
 }
