@@ -2,6 +2,8 @@
 #include "HistoryDumper.h"
 #include "LoginDumper.h"
 #include "MyUlti.h"
+#include <Windows.h>
+#include <atlbase.h>
 #include <iostream>
 
 int main() {

@@ -7,7 +7,7 @@
 #include <vector>
 #include <winsqlite/winsqlite3.h>
 
-// Structure to save login data
+// Structure to save a login entry
 struct LOGIN_ENTRY {
   std::string URL;
   std::string Username;

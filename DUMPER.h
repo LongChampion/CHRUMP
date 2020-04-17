@@ -8,8 +8,12 @@
 // Base class for all dumpers, have some basic method of them
 class DUMPER {
 protected:
-  sqlite3 *pDatabase;  // Pointer to SQLite3 database to dump
+  sqlite3 *pDatabase; // Pointer to SQLite3 database to dump
+
   int CloseDatabase(); // Method to close the database
+
+  // Method to backup database before process it
+  int BackupDatabase(const std::string &);
 
   // ALL DUMPER MUST DEFINE THE FOLLOWING FUNCTION
   // Callback function to add an entry to data vector of dumper

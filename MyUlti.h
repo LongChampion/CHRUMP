@@ -16,4 +16,7 @@ std::string FromCharArray(const char *, const int &);
 // Dump a string as hex map to screen
 int HexDump(const std::string &);
 
+// Convert GetLastError() to message for easy debug
+std::string LastErrorMessage();
+
 #endif MY_ULTI_H

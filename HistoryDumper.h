@@ -7,19 +7,26 @@
 #include <vector>
 #include <winsqlite/winsqlite3.h>
 
-// Structure to save login info
+// Structure to save a URL
+struct URL_ENTRY {
+  __int64 ID;
+  std::string Content;
+};
+
+// Structure to save a history entry
 struct HISTORY_ENTRY {
   std::string AccessTime;
   __int64 URL_Index;
 };
 
-// Class to dump login info
+// Class to dump history
 class HISTORY_DUMPER : public DUMPER {
 private:
-  std::vector<std::string> URL;
+  std::vector<URL_ENTRY> URL;
   std::vector<HISTORY_ENTRY> History;
   static int __stdcall AddURL(void *, int, char **, char **);
   static int __stdcall AddEntry(void *, int, char **, char **);
+  int URL_Search(const __int64 &);
 
 public:
   HISTORY_DUMPER() {}

@@ -72,7 +72,7 @@ std::string DECRYPTOR::Unprotect(const std::string &S) {
               << GetLastError() << std::endl;
     delete[] Cipher;
     LocalFree(Output.pbData);
-    return "";
+    return std::string();
   }
   delete[] Cipher;
 
@@ -87,7 +87,7 @@ std::string DECRYPTOR::Unprotect(const std::string &S) {
 std::string DECRYPTOR::Decrypt(const std::string &PW) {
   if (PW.length() < 16) {
     std::cerr << "Invalid encrypted password!" << std::endl;
-    return "";
+    return std::string();
   }
 
   CryptoPP::SecByteBlock key(MASTER_KEY.size());

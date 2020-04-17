@@ -55,7 +55,8 @@ int COOKIE_DUMPER::Show() {
     std::cout << std::string(60, '-') << std::endl;
     std::cout << "Host: " << T.Host << std::endl;
     std::cout << "Name: " << T.Name << std::endl;
-    std::cout << "Has Expired: " << T.HasExpired << std::endl;
+    std::cout << "Has Expired: " << (T.HasExpired ? "true" : "FALSE")
+              << std::endl;
     std::cout << "Encrypted value: " << std::endl;
     HexDump(T.EncryptedValue);
     std::cout << "Try to decrypt: " << Decryptor.Decrypt(T.EncryptedValue)

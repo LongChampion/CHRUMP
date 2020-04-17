@@ -18,7 +18,7 @@ std::string B64Decode(const std::string &S) {
     size_t k = B64TABLE.find(ch);
     if (k == std::string::npos) {
       std::cerr << "Error in base64 format!" << std::endl;
-      return "";
+      return std::string();
     }
 
     for (int i = 5; i >= 0; --i)
@@ -43,7 +43,7 @@ std::string GetUserHomepath() {
   if (_dupenv_s(&buffer, &counter, "HOMEDRIVE")) {
     std::cerr << "$HOMEDRIVE environment variable not found!" << std::endl;
     free(buffer);
-    return "";
+    return std::string();
   }
   HOMEPATH += std::string(buffer);
   free(buffer);
@@ -52,7 +52,7 @@ std::string GetUserHomepath() {
   if (_dupenv_s(&buffer, &counter, "HOMEPATH")) {
     std::cerr << "$HOMEPATH environment variable not found!" << std::endl;
     free(buffer);
-    return "";
+    return std::string();
   }
   HOMEPATH += std::string(buffer);
   free(buffer);
@@ -93,4 +93,21 @@ int HexDump(const std::string &S) {
   }
 
   return 0;
+}
+
+std::string LastErrorMessage() {
+  DWORD ErrorCode = GetLastError();
+  if (ErrorCode == 0)
+    return std::string();
+
+  LPSTR Buffer = nullptr;
+  size_t size = FormatMessageA(
+      FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM |
+          FORMAT_MESSAGE_IGNORE_INSERTS,
+      NULL, ErrorCode, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+      (LPSTR)&Buffer, 0, NULL);
+
+  std::string Message(Buffer, size);
+  LocalFree(Buffer);
+  return Message;
 }

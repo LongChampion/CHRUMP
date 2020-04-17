@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-// Structure to save cookie
+// Structure to save a cookie
 struct COOKIE_ENTRY {
   std::string Host;
   std::string Name;
@@ -14,6 +14,7 @@ struct COOKIE_ENTRY {
   std::string EncryptedValue;
 };
 
+// Class to dump cookies
 class COOKIE_DUMPER : public DUMPER {
 private:
   std::vector<COOKIE_ENTRY> Cookie;
